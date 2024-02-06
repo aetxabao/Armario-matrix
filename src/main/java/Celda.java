@@ -1,17 +1,17 @@
 public class Celda {
 
     // region atributos
-
+    private Articulo[] articulos;
     // endregion
 
 
     public Celda() {
-
+        articulos = new Articulo[Ctes.LIM_ARTICULOS];
     }
 
     // region getter y setter
     public int getCapacidadArticulos() {
-        return 0;
+        return articulos.length;
     }
 
     /**
@@ -21,11 +21,14 @@ public class Celda {
      * @return referencia al artículo correspondiente, puede ser null
      */
     public Articulo getArticulo(int numeroArticulo) {
-        return null;
+        return articulos[numeroArticulo-1];
     }
 
     public int getCantidadArticulos() {
         int n = 0;
+        for (int i = 0; i < articulos.length; i++) {
+            if (articulos[i] != null) { n++; }
+        }
         return n;
     }
     // endregion
@@ -40,7 +43,8 @@ public class Celda {
      * @return verdadero si coincide
      */
     private boolean esArticulo(String id, int numeroArticulo) {
-        return false;
+        Articulo articulo = getArticulo(numeroArticulo);
+        return articulo != null && articulo.getId().equals(id.toUpperCase());
     }
 
     /**
@@ -50,31 +54,64 @@ public class Celda {
      * @return verdadero si no hay una referencia a un objeto (es decir, es null)
      */
     private boolean estaVacio(int numeroArticulo) {
-        return false;
+        return getArticulo(numeroArticulo) == null;
     }
     // endregion
 
     // region CRUD
 
     public boolean haySitio() {
-        return false;
+        return getCantidadArticulos() < getCapacidadArticulos();
     }
 
     public boolean estaArticulo(String id) {
+        for (int i = 1; i <= getCapacidadArticulos(); i++) {
+            if (esArticulo(id, i)) {
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean insertarArticulo(Articulo articulo) {
+        for (int i = 1; i <= getCapacidadArticulos(); i++) {
+            if (estaVacio(i)) {
+                articulos[i-1] = articulo;
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean sacarArticulo(String id) {
+        for (int i = 1; i <= getCapacidadArticulos(); i++) {
+            if (esArticulo(id, i)) {
+                articulos[i-1] = null;
+                return true;
+            }
+        }
         return false;
     }
     // endregion
 
     public void pintar() {
+        System.out.println("-".repeat(14));
+        for (int i = 1; i <= getCapacidadArticulos(); i++) {
+            Articulo articulo = getArticulo(i);
+            String s = articulo != null?articulo.getId():" ".repeat(10);
+            System.out.printf("| %10s |\n", s);
+        }
+        System.out.println("-".repeat(14));
+    }
 
+    public double getValorArticulos() {
+        double valor = 0;
+        for (int i = 0; i < articulos.length; i++) {
+            if (articulos[i]!=null) {
+                valor += articulos[i].getPrecio();
+            }
+        }
+        return valor;
     }
 
 }

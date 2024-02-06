@@ -7,6 +7,7 @@ public class Ctes {
     public static final int OPC_INSERT_FIRST = 3;
     public static final int OPC_INSERT_POSITION = 4;
     public static final int OPC_REMOVE = 5;
+    public static final int OPC_VALUE = 6;
     // endregion
 
     // region armario

@@ -44,6 +44,9 @@ public class App {
             case Ctes.OPC_REMOVE:
                 sacarArticulo();
                 return false;
+            case Ctes.OPC_VALUE:
+                calcularValor();
+                return false;
             default:
                 return false;
         }
@@ -106,6 +109,11 @@ public class App {
         }else{
             System.out.println("El artículo " + id + " NO está en el armario");
         }
+    }
+
+    private void calcularValor() {
+        double valor = armario.getValorArticulos();
+        System.out.printf("El valor del armario es de %.2f Euros\n", valor);
     }
 
 }

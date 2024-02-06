@@ -11,6 +11,7 @@ public class Gui {
         System.out.println(" 3. Insertar artículo primer hueco");
         System.out.println(" 4. Insertar artículo en una posición");
         System.out.println(" 5. Sacar artículo");
+        System.out.println(" 6. Obtener valor de los artículos");
         System.out.println(" 0. Exit");
         System.out.println("*****************************************");
     }
